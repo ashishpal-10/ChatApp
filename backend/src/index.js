@@ -14,9 +14,12 @@ const PORT = process.env.PORT || 5000
 
 // const app = express()
 
-const allowedOrigins = process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
-    : ["http://localhost:5173", "https://chatapp-xc4o.onrender.com"];
+const allowedOrigins = [
+    "http://localhost:5173",
+    ...(process.env.CORS_ORIGIN
+        ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
+        : ["https://chatapp-xc4o.onrender.com"]),
+];
 
 app.use(cookieparser())
 
