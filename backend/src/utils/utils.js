@@ -13,8 +13,8 @@ export const generateToken = (userId, res) => {
         httpOnly: true,
         // sameSite: none,
         // secure:true,
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        secure: true,
     });
 
     return token;
