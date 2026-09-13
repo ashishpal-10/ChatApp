@@ -98,11 +98,16 @@ try {
 
 export const logout = async(req,res) =>{
         try {
+            const isSecure =
+                req.secure ||
+                req.headers["x-forwarded-proto"] === "https" ||
+                process.env.NODE_ENV === "production";
+
             res.cookie("jwt","",{
                 maxAge:0,
                 httpOnly:true,
-                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-                secure: process.env.NODE_ENV === "production",
+                sameSite: isSecure ? "none" : "lax",
+                secure: isSecure,
             });
             res.status(200).json({message:"Logged Out successfully"});
 
