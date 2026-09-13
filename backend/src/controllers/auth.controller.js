@@ -61,7 +61,11 @@ export const login = async(req,res) =>{
 const { email,password } = req.body;
 
 try {
-    const user = await User.findOne({email});
+    if (!email || !password){
+        return res.status(400).json({message:"All Fields are required"});
+    }
+
+    const user = await User.findOne({ email: email.trim().toLowerCase() });
     
     if(!user){
        return res.status(400).json({message:"invalid Credentials"})
@@ -83,7 +87,7 @@ try {
     })
 
 } catch (error) {
-     console.log("Error in Signup Controller",error.message);
+     console.log("Error in Login Controller",error.message);
      res.status(500).json({message:"internal server error"})
 }
 

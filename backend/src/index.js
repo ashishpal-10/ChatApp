@@ -14,12 +14,14 @@ const PORT = process.env.PORT || 5000
 
 // const app = express()
 
+const allowedOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
+    : ["http://localhost:5173", "https://chatapp-frontend.onrender.com"];
 
 app.use(cookieparser())
 
 app.use(cors({
-    origin:["http://localhost:5173",
-        "https://chatapp-frontend.onrender.com"],
+    origin: allowedOrigins,
     credentials:true,
 }))
 

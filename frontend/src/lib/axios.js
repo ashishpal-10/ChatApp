@@ -1,6 +1,10 @@
 import axios from "axios";
 
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL ||
+  (import.meta.env.MODE === "development" ? "http://localhost:8080" : "/");
+
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.MODE === "development" ? "https://chatapp-backend-5qti.onrender.com/api" : "/api",
+  baseURL: `${BACKEND_URL}/api`,
   withCredentials: true,
 });
