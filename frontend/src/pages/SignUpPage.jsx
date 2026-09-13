@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Eye, EyeOff, Lock, Mail, MessageSquare, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useAuthStore } from "../store/useAuthStore";
 
 const SignUpPage = () => {
-  const { signup } = useAuthStore();
+  const { signup, isSigningUp } = useAuthStore();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -40,15 +39,7 @@ const SignUpPage = () => {
     if (!isValid) return;
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/signup",
-        formData
-      );
-
-      console.log(response);
-      toast.success("Account created Successfully");
-
-      // signup(formData); // if you're using Zustand
+      await signup(formData);
     } catch (error) {
       console.log(error);
       toast.error("Something went Wrong");
@@ -164,9 +155,10 @@ const SignUpPage = () => {
           {/* Button */}
           <button
             type="submit"
-            className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-semibold shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02] active:scale-100 transition-all duration-300"
+            disabled={isSigningUp}
+            className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-semibold shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02] active:scale-100 transition-all duration-300 disabled:opacity-60 disabled:pointer-events-none"
           >
-            Create Account
+            {isSigningUp ? "Creating..." : "Create Account"}
           </button>
         </form>
 

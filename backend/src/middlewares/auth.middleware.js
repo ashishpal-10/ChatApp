@@ -31,4 +31,3 @@ export const protectroute = async(req,res,next)=>{
                 message:"Internal Server Error" });
     }
 }
-``
