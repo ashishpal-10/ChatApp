@@ -66,7 +66,7 @@ get().connectSocket();
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout");
-      set({ authUser: null });
+      set({ authUser: null, onlineUsers: [] });
       toast.success("Logged out successfully");
       get().disconnectSocket();
     } catch (error) {
@@ -97,7 +97,8 @@ get().connectSocket();
 
   connectSocket:()=>{
     const {authUser} = get();
-    if(!authUser || get().socket?.connected) return;
+    if(!authUser) return;
+    if (get().socket) get().socket.disconnect();
     const socket = io(BASE_URL,{
       query:{
         userId:authUser._id
@@ -114,6 +115,7 @@ get().connectSocket();
   
   disconnectSocket:()=>{
     if(get().socket?.connected) get().socket.disconnect();
+    set({ socket: null });
   }
 
 
