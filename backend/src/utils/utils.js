@@ -1,3 +1,4 @@
+import { truncateSync } from "fs";
 import jwt from "jsonwebtoken";
 
 export const generateToken = (userId, res) => {
@@ -11,7 +12,7 @@ export const generateToken = (userId, res) => {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: none,
-        secure:secure,
+        secure:true,
         // sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         // secure: process.env.NODE_ENV === "production",
     });
