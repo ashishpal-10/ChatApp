@@ -33,7 +33,7 @@ try {
     });
 
     if(newUser){
-        generateToken(newUser._id,res);
+        const token = generateToken(newUser._id,res);
         await newUser.save();
 
         res.status(201).json({
@@ -41,6 +41,7 @@ try {
             fullName:newUser.fullName,
             email:newUser.email,
             profilePic:newUser.profilePic,
+            token,
         })
     }
 
@@ -79,13 +80,14 @@ try {
        return  res.status(400).json({message:"invalid Credentials"})
     }
 
-    generateToken(user._id,res);
+    const token = generateToken(user._id,res);
 
     res.status(200).json({
            _id:user._id,
             fullName:user.fullName,
             email:user.email,
             profilePic:user.profilePic,
+            token,
     })
 
 } catch (error) {
@@ -155,7 +157,11 @@ export const updateProfile = async(req,res) =>{
 
 export const checkAuth = async(req,res)=>{
     try {
-        res.status(200).json(req.user);
+        const token = generateToken(req.user._id,res);
+        res.status(200).json({
+            ...req.user.toObject(),
+            token,
+        });
         
     } catch (error) {
          console.log("Error in logout controller:",error.message)
