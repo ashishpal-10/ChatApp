@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black pt-24 px-4">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8 space-y-10">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-10">
           {/* Header */}
           <div className="text-center">
             <h1 className="text-3xl font-bold text-white">

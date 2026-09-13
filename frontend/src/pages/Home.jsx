@@ -12,9 +12,13 @@ console.log(selectedUser)
       <div className="flex items-center justify-center h-[calc(100vh-6rem)]">
         <div className="w-full max-w-7xl h-full rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
           <div className="flex h-full">
-            <Sidebar />
+            <div className={`${selectedUser ? "hidden md:flex" : "flex"} w-full md:w-80 md:shrink-0`}>
+              <Sidebar />
+            </div>
 
-            {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
+            <div className={`${!selectedUser ? "hidden md:flex" : "flex"} flex-1 min-w-0`}>
+              {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
+            </div>
           </div>
         </div>
       </div>

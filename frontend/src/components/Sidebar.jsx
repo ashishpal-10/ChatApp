@@ -17,14 +17,10 @@ const Sidebar = () => {
     getUsers();
   }, [getUsers]);
 
-  const filteredUsers = showOnlineOnly
-    ? users.filter((user) => onlineUsers.includes(user._id))
-    : users;
-
   if (isUsersLoading) return <SidebarSkeletons />;
 
   return (
-    <aside className="h-full w-20 lg:w-80 bg-slate-950/40 backdrop-blur-xl border-r border-white/10 flex flex-col transition-all duration-300">
+    <aside className="h-full w-full bg-slate-950/40 backdrop-blur-xl border-r border-white/10 flex flex-col transition-all duration-300">
       {/* Header */}
       <div className="border-b border-white/10 p-5">
         <div className="flex items-center gap-3">
@@ -32,13 +28,13 @@ const Sidebar = () => {
             <Users className="w-6 h-6 text-violet-400" />
           </div>
 
-          <div className="hidden lg:block">
+          <div>
             <h2 className="text-lg font-bold text-white">Contacts</h2>
           </div>
         </div>
 
         {/* Online Filter */}
-        <div className="mt-5 hidden lg:flex items-center gap-3">
+        <div className="mt-5 flex items-center gap-3">
           <label className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"
@@ -73,7 +69,7 @@ const Sidebar = () => {
               }`}
           >
             {/* Avatar */}
-            <div className="relative mx-auto lg:mx-0">
+            <div className="relative">
               <img
                 src={user.profilePic || "https://i.pravatar.cc/300"}
                 alt={user.fullName}
@@ -87,7 +83,7 @@ const Sidebar = () => {
             </div>
 
             {/* User Info */}
-            <div className="hidden lg:block text-left min-w-0 flex-1">
+            <div className="text-left min-w-0 flex-1">
               <h3 className="text-white font-semibold truncate">
                 {user.fullName}
               </h3>

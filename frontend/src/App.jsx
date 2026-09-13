@@ -35,7 +35,7 @@ const App = () => {
   return (
     <div>
 
-      <Navbar/>/
+      <Navbar/>
      <Routes>
   <Route
     path="/"
