@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000
 
 const allowedOrigins = process.env.CORS_ORIGIN
     ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
-    : ["http://localhost:5173", "https://chatapp-frontend.onrender.com"];
+    : ["http://localhost:5173", "https://chatapp-xc4o.onrender.com"];
 
 app.use(cookieparser())
 
