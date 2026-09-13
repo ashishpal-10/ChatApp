@@ -13,6 +13,10 @@ const Sidebar = () => {
   const { onlineUsers } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
+  const filteredUsers = showOnlineOnly
+    ? users.filter((user) => onlineUsers.includes(user._id))
+    : users;
+
   useEffect(() => {
     getUsers();
   }, [getUsers]);
@@ -52,7 +56,7 @@ const Sidebar = () => {
 
       {/* Users */}
       <div className="flex-1 overflow-y-auto p-3 space-y-2">
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <button
             key={user._id}
 
@@ -94,9 +98,11 @@ const Sidebar = () => {
           </button>
         ))}
 
-          {/* {filteredUsers.length === 0 && (
-          <div className="text-center text-zinc-500 py-4">No online users</div>
-        )} */}
+          {filteredUsers.length === 0 && (
+          <div className="text-center text-zinc-500 py-4">
+            {showOnlineOnly ? "No online users" : "No other users yet. Share the app to add contacts!"}
+          </div>
+          )}
       </div>
     </aside>
   );

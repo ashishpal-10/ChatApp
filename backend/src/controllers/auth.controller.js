@@ -15,7 +15,9 @@ try {
         return res.status(400).json({message:"Password must be greater than 6 characters long"})
     }
 
-    const user = await User.findOne({ email });
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const user = await User.findOne({ email: normalizedEmail });
 
     if(user){
         return res.status(400).json({message:"User already exists"});
@@ -26,7 +28,7 @@ try {
 
     const newUser = new User({
         fullName,
-        email,
+        email: normalizedEmail,
         password:hashedPassword,
     });
 

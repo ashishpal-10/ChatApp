@@ -1,15 +1,25 @@
 import {Server} from "socket.io"
 import express from "express"
 import http from "http"
+import dotenv from "dotenv"
 
 
 const app = express();
 
 const server = http.createServer(app);
 
+dotenv.config();
+
+const allowedOrigins = [
+    "http://localhost:5173",
+    ...(process.env.CORS_ORIGIN
+        ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
+        : ["https://chatapp-xc4o.onrender.com"]),
+];
+
 const io = new Server(server,{
     cors:{
-        origin:["http://localhost:5173"],
+        origin:allowedOrigins,
         credentials:true,
     }
 });

@@ -18,7 +18,9 @@ export const useChatStore = create((set, get) => ({
       // console.log("API Response:", res.data);
       set({ users: res.data });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(
+        error.response?.data?.error || error.response?.data?.message || "Failed to load users"
+      );
     } finally {
       set({ isUsersLoading: false });
     }
@@ -30,7 +32,9 @@ export const useChatStore = create((set, get) => ({
       const res = await axiosInstance.get(`/message/${userId}`);
       set({ messages: res.data });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(
+        error.response?.data?.error || error.response?.data?.message || "Failed to load messages"
+      );
     } finally {
       set({ isMessagesLoading: false });
     }
@@ -43,7 +47,9 @@ export const useChatStore = create((set, get) => ({
       const res = await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
       set({ messages: [...messages, res.data] });
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      toast.error(
+        error.response?.data?.error || error.response?.data?.message || "Failed to send message"
+      );
     }
   },
 
