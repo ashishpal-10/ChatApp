@@ -27,6 +27,7 @@ const App = () => {
     const currentUserId = authUser?._id;
     if (prevUserRef.current !== currentUserId) {
       useChatStore.getState().resetChat();
+      if (currentUserId) useChatStore.getState().getUsers();
       prevUserRef.current = currentUserId;
     }
   }, [authUser?._id]);
